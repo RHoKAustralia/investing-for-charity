@@ -1,0 +1,53 @@
+// README (RAVEN): Generic – reset and/or normalize styles, box-sizing definition, etc. This is the first layer which generates actual CSS.
+
+.g-flex__container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    list-style: none;
+    list-style-type: none;
+}
+
+.g-flex__container--column {
+  flex-direction: column;
+}
+
+.g-flex__container--no-wrap {
+    flex-wrap: nowrap;
+}
+
+.g-flex__container--justify-center {
+  justify-content: center;
+}
+
+.g-flex__container--align-center {
+  align-items: center;
+}
+
+.g-flex__container--align-self-start {
+  align-self: flex-start;
+}
+
+.g-flex__container--end {
+  justify-content: flex-end;
+}
+
+.g-flex__item {
+    flex: 1 1 auto;
+}
+
+.g-flex__item--left {
+  align-self: left;
+  margin-right: auto;
+}
+
+.g-flex__item--right {
+  align-self: right;
+  margin-left: auto;
+}
+
+.g-flex__item--no-grow {
+    flex-grow: 0;
+}

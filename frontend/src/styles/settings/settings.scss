@@ -1,0 +1,35 @@
+// README (RAVEN): Settings – used with preprocessors and contain font, colors definitions, etc.
+
+// Google Fonts
+@import url(https://fonts.googleapis.com/css?family=Lora|Lato:400,700);
+
+// Font Variables
+
+@mixin lato($weight) {
+  font-family: 'Lato', sans-serif;
+  font-weight: $weight;
+}
+
+// Colour Variables
+$primary-color: black;
+$secondary-color: white;
+$tertiary-color: #6137FE;
+
+
+$mobile-padding: 1em;
+$desktop-padding: 2em;
+
+$size-xs: 26em; //480px - end of small mobiles portrait, 4 columns
+$size-s: 37.5em; //600px - end of large mobiles portrait
+$size-s2: 52.5em; //840px - end of tablets portrait, 8 columns below, 12 columns above
+$size-m: 60em; //960px - end of all mobiles landscape
+$size-l: 80em; // 1280px - end of all tablets landscape
+$size-xl: 100em; //1600px - fixed width after this point
+
+// README (RAVEN): Use these media selectors to define styles at breakpoints, first defining mobile without a breakpoint.
+// @media (min-width: $size-xs) {}
+// @media (min-width: $size-s) {}
+// @media (min-width: $size-s2) {}
+// @media (min-width: $size-m) {}
+// @media (min-width: $size-l) {}
+// @media (min-width: $size-xl) {}

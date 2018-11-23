@@ -1,0 +1,36 @@
+.c-app__header-container {
+  background-color: black;
+  width: 100%;
+  color: white;
+}
+
+.c-app__header {
+
+}
+
+.c-app__logo {
+  max-width: 50px;
+}
+
+.c-app__title {
+  padding-left:1em;
+}
+
+.c-app__navigation {
+}
+
+.c-app__navigation-list {
+}
+
+.c-app__navigation-list-item {
+  display: inline-block;
+  padding: 0 1em;
+
+  &:not(:nth-last-child(1)):not(:nth-last-child(2)) {
+    border-right: 1px solid white;
+  }
+
+  &:last-of-type {
+    float: right;
+  }
+}

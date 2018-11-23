@@ -1,0 +1,43 @@
+html {
+  font-size: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.g-inner-wrapper {
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.g-content-padding {
+  padding: 1em;
+
+  @media (min-width: $size-s2) {
+    padding: 2em;
+  }
+}
+
+.g-inner-wrapper--default {
+  max-width: 1300px;
+}
+
+.g-inner-wrapper--thin {
+  max-width: $size-m;
+}
+
+.g-position-relative {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+// .g-clearfix:after {
+//     visibility: hidden;
+//     display: block;
+//     font-size: 0;
+//     content: " ";
+//     clear: both;
+//     height: 0;
+// }

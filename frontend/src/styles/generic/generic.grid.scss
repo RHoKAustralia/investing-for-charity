@@ -1,0 +1,86 @@
+// README (RAVEN): Generic – reset and/or normalize styles, box-sizing definition, etc. This is the first layer which generates actual CSS.
+.g-grid__container {
+    display: grid;
+    align-items: stretch;
+}
+
+.g-grid__container>div,
+.g-grid__container>section {
+    display: grid;
+}
+
+.g-grid__item--one {
+    grid-area: one;
+}
+
+.g-grid__item--two {
+    grid-area: two;
+}
+
+.g-grid__item--three {
+    grid-area: three;
+}
+
+.g-grid__item--four {
+    grid-area: four;
+}
+
+.g-grid__item--five {
+    grid-area: five;
+}
+
+.g-grid__item--six {
+    grid-area: six;
+}
+
+.g-grid__container--1\/2-1\/2 {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: "one" "two";
+    @media (min-width: $size-s2) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas: "one two";
+    }
+}
+
+.g-grid__container--1\/3-2\/3 {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: "one" "two";
+    @media (min-width: $size-s2) {
+        grid-template-columns: 1fr 2fr;
+        grid-template-areas: "one two";
+    }
+}
+
+.g-grid__container--1\/4-1\/4-1\/4-1\/4 {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: "one" "two" "three" "four";
+    @media (min-width: $size-s2) {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-areas: "one two three four";
+    }
+}
+
+.g-grid__container--2\/4-1\/4-1\/4 {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: "one" "two" "three";
+    @media (min-width: $size-s2) {
+        grid-template-columns: 2fr repeat(2, 1fr);
+        grid-template-areas: "one two three";
+    }
+}
+
+.g-grid__container--2x-2\/4-1\/4-1\/4 {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: "one" "four" "two" "five" "three" "six";
+    grid-template-rows: 5em auto 5em auto 5em auto;
+    @media (min-width: $size-s2) {
+        grid-template-columns: 2fr repeat(2, 1fr);
+        grid-template-areas: "one two three" "four five six";
+        grid-template-rows: 5em auto;
+    }
+}

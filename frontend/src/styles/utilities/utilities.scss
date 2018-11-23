@@ -1,0 +1,29 @@
+@mixin visually-hidden-mixin() {
+    display: block;
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.u-visually-hidden {
+  @include visually-hidden-mixin();
+}
+
+.u-margin-top {
+  @media (max-width: $size-s2) {
+    margin-top: $mobile-padding;
+  }
+  @media (min-width: $size-s2) {
+    margin-top: $desktop-padding;
+  }
+}
+
+.u-padding-bottom--0 {
+  padding-bottom: 0;
+}

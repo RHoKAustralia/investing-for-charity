@@ -1,0 +1,63 @@
+// README (RAVEN): Elements – styling for bare HTML elements (like H1, A, etc.). These come with default styling from the browser so we can redefine them here.
+// Should not use font-size: 62.5% as this will change size set by users (accessibility)
+// Using modular REM, ems pattern. See https://css-tricks.com/rem-global-em-local/
+body {
+    overflow-x: hidden;
+}
+
+p,
+a,
+li,
+button {
+    @include lato(400);
+    font-size: 1.1em;
+    line-height: 1.2em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.e-fake-heading {
+    @include lato(700);
+    font-size: 1.4em;
+}
+
+h2 {
+    font-size: 1.6em;
+}
+
+a,
+button {
+    text-decoration: none;
+    @include lato(700);
+    overflow: hidden;
+    z-index: 2;
+    position: relative;
+    outline: none;
+    white-space: nowrap;
+    &:hover,
+    &:focus,
+    &:active {
+        text-decoration: none;
+        cursor: pointer;
+    }
+}
+
+.e-link--border {
+    background-color: transparent;
+    color: inherit;
+    transition: all .3s;
+    padding: .8em;
+    border: 1px solid transparent;
+    border-width: 2px !important;
+    background-color: transparent;
+    border-color: inherit;
+    &:hover,
+    &:focus,
+    &:active {
+        text-decoration: none;
+    }
+}
