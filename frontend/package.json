@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "format": "yarn prettier --config .prettierrc --write '**/*.js'",
-    "start": "HTTPS=true react-scripts start",
+    "start": "cross-env HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -21,6 +21,7 @@
     "reactstrap": "^6.5.0"
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "jshint": "^2.9.6",
     "prettier": "^1.15.2"
   },
