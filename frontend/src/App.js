@@ -4,6 +4,8 @@ import './styles/stylesheets.scss';
 import './App.scss';
 import Header from './components/Header';
 import Home from './components/Home';
+import Login from './components/LoginForm'
+
 class App extends Component {
   render() {
     return (
@@ -14,6 +16,7 @@ class App extends Component {
             <Route exact path='/' component={Home}/>
           </Switch>
         </BrowserRouter>
+        <Login />
       </div>
     );
   }
