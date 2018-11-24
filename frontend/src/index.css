@@ -32,3 +32,32 @@ code {
   font-style:bolder;
 }
 
+.headerButton{margin-right:10px;}
+
+.headerSection{padding:10px;overflow:hidden;background-color:#f4f4f4;}
+
+.headerLeft{
+  float:left;
+  width:35vw;
+}
+
+.headerRight{
+  float:right;
+  margin-top:30px;
+  margin-right:10px;  
+}
+
+.donerListBody{padding-left:2vw;padding-right:2vw;background-color:#f4f4f4;}
+.donorList{background-color:white;min-height:80vh;}
+
+.tableHeader{font-size:9pt;text-align:center;}
+
+.tableData{font-size:8pt;text-align:center; }
+.tableData.tableData td{
+  vertical-align: middle;
+}
+
+.tableViewButton{width:100px;}
+.tableTitle{background-color:rgb(44, 44, 44);color:white;}
+
+.tableTitle td h5{vertical-align: middle;}

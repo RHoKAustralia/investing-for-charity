@@ -5,6 +5,7 @@ import './App.scss';
 import Header from './components/Header';
 import Home from './components/Home';
 import Login from './components/LoginForm'
+import DonorList from './components/DonorList'
 
 class App extends Component {
   render() {
@@ -16,7 +17,7 @@ class App extends Component {
             <Route exact path='/' component={Home}/>
           </Switch>
         </BrowserRouter>
-        <Login />
+        <DonorList />
       </div>
     );
   }

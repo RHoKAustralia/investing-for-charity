@@ -15,10 +15,10 @@ export default class Login extends React.Component {
         <FormGroup>
           <Label>Password:</Label>
           <Input type="password" name="password" id="examplePassword" placeholder="password" />
-        </FormGroup>
+        </FormGroup>  
         {' '}
         <Button color="success" className="loginFormButton">Login</Button>
       </Form>
     );
   }
-}
+}  
