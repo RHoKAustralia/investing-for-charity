@@ -5,14 +5,16 @@ export default class Login extends React.Component {
   render() {
     return (
       <Form className="loginForm">
-        <FormGroup>         
-          <Label>Email</Label>
-          <Input type="email" name="email" id="exampleEmail" placeholder="Email" />
+      <h3 className="formTitle">Administrator</h3>
+      <hr/>
+        <FormGroup>
+          <Label>Username:</Label>
+          <Input type="email" name="email" id="exampleEmail" placeholder="email" />
         </FormGroup>
         {' '}
         <FormGroup>
-          <Label>Password</Label>
-          <Input type="password" name="password" id="examplePassword" placeholder="Password" />
+          <Label>Password:</Label>
+          <Input type="password" name="password" id="examplePassword" placeholder="password" />
         </FormGroup>
         {' '}
         <Button color="success" className="loginFormButton">Login</Button>

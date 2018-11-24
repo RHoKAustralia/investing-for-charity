@@ -15,15 +15,20 @@ code {
 
 
 .loginForm{
-  width:25vw;
+  width:300px;
   padding:20px;
   border:1px lightgrey solid;
-  margin-left:35vw;
+  margin-left:35%;
   margin-top:20vh;
 }
 
 .loginFormButton{
   width:100%;
 
+}
+
+.formTitle{
+  text-align:center;
+  font-style:bolder;
 }
 
