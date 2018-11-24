@@ -15,7 +15,7 @@ class App extends Component {
         <Auth>
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={DonorList} />
             </Switch>
           </BrowserRouter>
         </Auth>
