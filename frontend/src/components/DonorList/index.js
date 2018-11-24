@@ -3,7 +3,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Table } from 'reactstrap';
 import apiAxios from '../../api/apiAxios'
 
-let name = 'Matt';
+let admin = 'John Smith';
 
 
 export default class DonorList extends React.Component {
@@ -32,7 +32,7 @@ export default class DonorList extends React.Component {
             {' '}
             {this.state.emailsent && <span>email sent successfully</span>}
             {this.state.emailerror && <span>failed to send email</span>}
-            <h5>Hello {name}</h5>
+            <h5>Hello {admin}</h5>
             <p>
               Add, Edit and Remove - Donors, Donations, Disbursments -
               Allocations and EOFY Divident
@@ -41,7 +41,7 @@ export default class DonorList extends React.Component {
 
           <div className="headerRight">
             <Button color="success" className="headerButton" onClick={this.sendemail }>Email Donors</Button>
-            <Button color="success">Add Donors</Button>
+            <Button href="/add-donor" color="success">Add Donors</Button>
           </div>
         </div>
         <div className="donorList">
@@ -75,7 +75,7 @@ export default class DonorList extends React.Component {
               <td>0</td>
               <td>0</td>
               <td>0</td>
-              <td><Button color="success" className="tableViewButton">View</Button></td>
+              <td><Button color="success" className="tableViewButton" href="view-donor">View</Button></td>
           </tr>
           <tr className="tableData">
               <td>John Smith</td>

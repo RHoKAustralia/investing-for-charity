@@ -61,3 +61,14 @@ code {
 .tableTitle{background-color:rgb(44, 44, 44);color:white;}
 
 .tableTitle td h5{vertical-align: middle;}
+
+.brand{color:White;}
+.logout{color:white!important;}
+
+.addDonorListBody{padding-left:20vw;padding-right:20vw;background-color:#f4f4f4;height:inherit;padding-bottom:30px;}
+
+.addDonorList{background-color:white;padding-left:25%;padding-right:25%;padding-top:5%;padding-bottom:5%;}
+
+.addDonorButton{width:100%;margin-top:5px;padding:10px!important}
+
+.removeDonorButton{width:100%;margin-top:2px;padding:10px!important;}
