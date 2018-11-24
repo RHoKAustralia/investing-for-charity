@@ -11,80 +11,6 @@
         "LogGroupName": "/aws/lambda/mailchimp-dividend-impact-statement-test-app"
       }
     },
-    "IamRoleLambdaExecution": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Version": "2012-10-17",
-          "Statement": [
-            {
-              "Effect": "Allow",
-              "Principal": {
-                "Service": [
-                  "lambda.amazonaws.com"
-                ]
-              },
-              "Action": [
-                "sts:AssumeRole"
-              ]
-            }
-          ]
-        },
-        "Policies": [
-          {
-            "PolicyName": {
-              "Fn::Join": [
-                "-",
-                [
-                  "test",
-                  "mailchimp-dividend-impact-statement",
-                  "lambda"
-                ]
-              ]
-            },
-            "PolicyDocument": {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "logs:CreateLogStream"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/mailchimp-dividend-impact-statement-test-app:*"
-                    }
-                  ]
-                },
-                {
-                  "Effect": "Allow",
-                  "Action": [
-                    "logs:PutLogEvents"
-                  ],
-                  "Resource": [
-                    {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/mailchimp-dividend-impact-statement-test-app:*:*"
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        ],
-        "Path": "/",
-        "RoleName": {
-          "Fn::Join": [
-            "-",
-            [
-              "mailchimp-dividend-impact-statement",
-              "test",
-              "ap-southeast-2",
-              "lambdaRole"
-            ]
-          ]
-        }
-      }
-    },
     "AppLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -92,26 +18,20 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/mailchimp-dividend-impact-statement/test/1543099894447-2018-11-24T22:51:34.447Z/mailchimp-dividend-impact-statement.zip"
+          "S3Key": "serverless/mailchimp-dividend-impact-statement/test/1543100756229-2018-11-24T23:05:56.229Z/mailchimp-dividend-impact-statement.zip"
         },
         "FunctionName": "mailchimp-dividend-impact-statement-test-app",
         "Handler": "handler.handler",
         "MemorySize": 1024,
-        "Role": {
-          "Fn::GetAtt": [
-            "IamRoleLambdaExecution",
-            "Arn"
-          ]
-        },
+        "Role": "arn:aws:iam::399675405261:role/lambda_send_db_to_mailchimp",
         "Runtime": "nodejs8.10",
         "Timeout": 6
       },
       "DependsOn": [
-        "AppLogGroup",
-        "IamRoleLambdaExecution"
+        "AppLogGroup"
       ]
     },
-    "AppLambdaVersionRNhboGWFHHagzY2CJ1iqYbSByHhhcJPp5GZiF2CJM": {
+    "AppLambdaVersion6sUgkVeGZxYMPdGtC3614VgPVhAmdeC094eTq4stI4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
@@ -268,7 +188,10 @@
           "Ref": "ApiGatewayRestApi"
         },
         "ApiKeyRequired": false,
-        "AuthorizationType": "AWS_IAM",
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "2UnderscoreL1ukFtrEbApiGatewayAuthorizer"
+        },
         "Integration": {
           "IntegrationHttpMethod": "POST",
           "Type": "AWS_PROXY",
@@ -297,7 +220,8 @@
           }
         },
         "MethodResponses": []
-      }
+      },
+      "DependsOn": "2UnderscoreL1ukFtrEbApiGatewayAuthorizer"
     },
     "ApiGatewayMethodProxyVarAny": {
       "Type": "AWS::ApiGateway::Method",
@@ -311,7 +235,10 @@
           "Ref": "ApiGatewayRestApi"
         },
         "ApiKeyRequired": false,
-        "AuthorizationType": "AWS_IAM",
+        "AuthorizationType": "COGNITO_USER_POOLS",
+        "AuthorizerId": {
+          "Ref": "2UnderscoreL1ukFtrEbApiGatewayAuthorizer"
+        },
         "Integration": {
           "IntegrationHttpMethod": "POST",
           "Type": "AWS_PROXY",
@@ -340,9 +267,25 @@
           }
         },
         "MethodResponses": []
+      },
+      "DependsOn": "2UnderscoreL1ukFtrEbApiGatewayAuthorizer"
+    },
+    "2UnderscoreL1ukFtrEbApiGatewayAuthorizer": {
+      "Type": "AWS::ApiGateway::Authorizer",
+      "Properties": {
+        "AuthorizerResultTtlInSeconds": 300,
+        "IdentitySource": "method.request.header.Authorization",
+        "Name": "2_L1ukFtrEb",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "Type": "COGNITO_USER_POOLS",
+        "ProviderARNs": [
+          "arn:aws:cognito-idp:ap-southeast-2:399675405261:userpool/ap-southeast-2_L1ukFtrEb"
+        ]
       }
     },
-    "ApiGatewayDeployment1543099894468": {
+    "ApiGatewayDeployment1543100756248": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -414,7 +357,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionRNhboGWFHHagzY2CJ1iqYbSByHhhcJPp5GZiF2CJM"
+        "Ref": "AppLambdaVersion6sUgkVeGZxYMPdGtC3614VgPVhAmdeC094eTq4stI4"
       }
     },
     "ServiceEndpoint": {
