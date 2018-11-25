@@ -33,7 +33,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/mailchimp-dividend-impact-statement/test/1543106751419-2018-11-25T00:45:51.419Z/mailchimp-dividend-impact-statement.zip"
+                "S3Key": "serverless/mailchimp-dividend-impact-statement/test/1543111634780-2018-11-25T02:07:14.780Z/mailchimp-dividend-impact-statement.zip"
               },
               "FunctionName": "mailchimp-dividend-impact-statement-test-app",
               "Handler": "handler.handler",
@@ -46,14 +46,14 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionWQ0oeZNRTLH4ZpgFZLV59ampPxxUiN0cBdFAyOFoNvA": {
+          "AppLambdaVersionXrw12GT0ets6ISLFiumk60PoGhINRNrCu6AbdWk7Gw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "cnan2zsTbE8AIbBl7P9GkyAQswTzz3MkgzwF7+IPYys="
+              "CodeSha256": "SSqpKaaieDhiJcQyoD3FUF4AB7Yy7ItWO4vCTt5+dIs="
             }
           },
           "ApiGatewayRestApi": {
@@ -300,7 +300,7 @@
               ]
             }
           },
-          "ApiGatewayDeployment1543106751438": {
+          "ApiGatewayDeployment1543111634801": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -372,7 +372,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionWQ0oeZNRTLH4ZpgFZLV59ampPxxUiN0cBdFAyOFoNvA"
+              "Ref": "AppLambdaVersionXrw12GT0ets6ISLFiumk60PoGhINRNrCu6AbdWk7Gw"
             }
           },
           "ServiceEndpoint": {
@@ -497,7 +497,7 @@
     "artifact": "/Users/liamraven/Workspace/investing-for-charity/backend/mailchimp-dividend-impact-statement-lambda/.serverless/mailchimp-dividend-impact-statement.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/mailchimp-dividend-impact-statement/test/1543106751419-2018-11-25T00:45:51.419Z",
+    "artifactDirectoryName": "serverless/mailchimp-dividend-impact-statement/test/1543111634780-2018-11-25T02:07:14.780Z",
     "artifact": "mailchimp-dividend-impact-statement.zip"
   }
 }
