@@ -65,15 +65,20 @@ export default class AddDonor extends React.Component {
         </Row>
 
         <FormGroup>
-        <Label for="EmailAddress">Email Address:</Label>
+        <Label for="EmailAddress">Email:</Label>
         <Input type="email" name="EmailAddress" id="EmailAddress" placeholder="Email Address" ></Input>
         </FormGroup>
+
+        <FormGroup>
+        <Label for="Address">Address:</Label>
+        <Input type="textarea" name="Address" id="EmailAddress" placeholder="Address" ></Input>
+        </FormGroup>
+
         <FormGroup>
         <Label for="AmountDonated">Amount Donated:</Label>
-        <Input type="tezt" name="AmountDonated" id="AmountDontated" placeholder="Amount Donated" ></Input>
+        <Input type="number" name="AmountDonated" id="AmountDontated" placeholder="Amount Donated" ></Input>
         </FormGroup>
-        <Button color="success" className="addDonorButton">Submit</Button>
-        <Button color="danger" className="removeDonorButton">Cancel</Button>
+        <Button color="success" className="addDonorButton">Save</Button>
 
       </Form>
         </div>

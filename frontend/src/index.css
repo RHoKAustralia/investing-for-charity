@@ -37,13 +37,14 @@ code {
 .headerSection{padding:10px;overflow:hidden;background-color:#f4f4f4;}
 
 .headerLeft{
+  margin-top:10px;
   float:left;
   width:35vw;
 }
 
 .headerRight{
   float:right;
-  margin-top:30px;
+  margin-top:40px;
   margin-right:10px;  
 }
 
@@ -72,3 +73,52 @@ code {
 .addDonorButton{width:100%;margin-top:5px;padding:10px!important}
 
 .removeDonorButton{width:100%;margin-top:2px;padding:10px!important;}
+
+.successEmail{
+  background-color:lightgreen;
+  position:absolute;
+  top:0;
+  left:40%;
+  padding:30px;
+  border-left:1px gray solid;
+  border-right:1px grey solid;
+  border-bottom:1px grey solid;
+
+  
+
+
+}
+
+@-webkit-keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+}
+
