@@ -6,7 +6,10 @@ import apiAxios from '../../api/apiAxios'
 let admin = 'John Smith';
 
 
+
+
 export default class DonorList extends React.Component {
+
     state = {emailsent:false}
         sendemail = async() =>{
             try {
@@ -23,14 +26,31 @@ export default class DonorList extends React.Component {
                 console.log('fail to fetch apiAxios', e);
               }
         }
-    
+
+        
+
+        async componentDidMount(){
+          try {
+            const { data } = await apiAxios.post('/listdonors');
+            this.setState({ test: data });
+            console.log(this.state.test.Donors[0].name)
+            
+          } catch (e) {
+            console.log('fail to fetch apiAxios', e);
+          }
+        }
+        
+
   render() {
-    return (
-      <div className="donerListBody">
+    if (!this.state.test) {
+      return null;
+    }
+
+    return <div className="donerListBody">
         <div className="headerSection">
           <div className="headerLeft">
             {' '}
-            {this.state.emailsent && <span>email sent successfully</span>}
+            {this.state.emailsent && <div className="successEmail">email sent successfully</div>}
             {this.state.emailerror && <span>failed to send email</span>}
             <h5>Hello {admin}</h5>
             <p>
@@ -40,118 +60,66 @@ export default class DonorList extends React.Component {
           </div>
 
           <div className="headerRight">
-            <Button color="success" className="headerButton" onClick={this.sendemail }>Email Donors</Button>
-            <Button href="/add-donor" color="success">Add Donors</Button>
+            <Button color="success" className="headerButton" onClick={this.sendemail}>
+              Email Donors
+            </Button>
+            <Button href="/add-donor" color="success">
+              Add Donors
+            </Button>
           </div>
         </div>
         <div className="donorList">
+          <Table bordered>
+            <thead>
+              <tr className="tableTitle">
+                <td colSpan="3">Donors List</td>
+                <td colSpan="8">Cause Allocations</td>
+              </tr>
+
+              <tr className="tableHeader">
+                <th>Donor Full Name:</th>
+                <th>Total $ Donations:</th>
+                <th>Disbursments %</th>
+                <th>Under Privilidged Youth</th>
+                <th>Refugees in Australia</th>
+                <th>Child Slavery</th>
+                <th>Mental Health</th>
+                <th>Women In Domestic Violence</th>
+                <th>Social Enterprise</th>
+                <th>Cancer Research</th>
+              </tr>
+
+          
+              {this.state.test.Donors.map(item => 
+              <tr className="tableData">
+                <td>{item.name}</td>
+                <td>{item.totaldonations}</td>
+                <td>{item.disbursments}</td>
+                <td>{item.underprivilidgedyouth}</td>
+                <td>{item.refugeesinaustralia}</td>
+                <td>{item.childslavery}</td>
+                <td>{item.mentalhealth}</td>
+                <td>{item.womenindomesticviolence}</td>
+                <td>{item.socialenterprise}</td>
+                <td>{item.cancerresearch}</td>
+                <td>
+              <Button color="success" className="tableViewButton" href="view-donor">
+                    View
+                  </Button>
+              </td>
+              </tr>
             
-      <Table bordered>
-        <thead>
-            <tr class="tableTitle">
-                <td colspan="3">Donors List</td>
-                <td colspan="8">Cause Allocations</td>
-            </tr>
-          <tr className="tableHeader">
-            <th>Donor Full Name:</th>
-            <th>Total $ Donations:</th>
-            <th>Disbursments %</th>
-            <th>Under Privilidged Youth</th>
-            <th>Refugees in Australia</th>
-            <th>Child Slavery</th>
-            <th>Mental Health</th>
-            <th>Women In Domestic Violence</th>
-            <th>Social Enterprise</th>
-            <th>Cancer Research</th>
-          </tr>
-          <tr className="tableData">
-              <td>John Smith</td>
-              <td>$300</td>
-              <td>5%</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td><Button color="success" className="tableViewButton" href="view-donor">View</Button></td>
-          </tr>
-          <tr className="tableData">
-              <td>John Smith</td>
-              <td>$300</td>
-              <td>5%</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td><Button color="success" className="tableViewButton">View</Button></td>
-          </tr>
-          <tr className="tableData">
-              <td>John Smith</td>
-              <td>$300</td>
-              <td>5%</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td><Button color="success" className="tableViewButton">View</Button></td>
-          </tr>
-          <tr className="tableData">
-              <td>John Smith</td>
-              <td>$300</td>
-              <td>5%</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td><Button color="success" className="tableViewButton">View</Button></td>
-          </tr>
-          <tr className="tableData">
-              <td>John Smith</td>
-              <td>$300</td>
-              <td>5%</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td><Button color="success" className="tableViewButton">View</Button></td>
-          </tr> 
-          <tr className="tableData">
-              <td>John Smith</td>
-              <td>$300</td>
-              <td>5%</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td><Button color="success" className="tableViewButton">View</Button></td>
-          </tr>     
+            
+            )}
+             
 
-        </thead>
-        <tbody>
+              
+           
 
-        </tbody>
-      </Table>
-
-
+            </thead>
+            <tbody />
+          </Table>
         </div>
-      </div>
-    );
+      </div>;
   }
 }
