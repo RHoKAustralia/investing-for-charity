@@ -19,8 +19,12 @@ CREATE TABLE donors (
             donorID serial PRIMARY KEY,
             firstName varchar(255) NOT NULL,
             lastName varchar(255) NOT NULL,
-            email varchar(255)
- );
+            email varchar(255),
+            annualDisbursement integer not null,
+);
+
+alter table donors
+add column disbursement integer not null default 5;
 
 INSERT INTO donors (firstName, lastName, email)
         VALUES
@@ -47,17 +51,36 @@ INSERT INTO donors (firstName, lastName, email)
 INSERT INTO donors (firstName, lastName, email)
 VALUES('Westpac',	'GiftMatching', ''),	
 ('Westpac',	'CEOAwards', '');
- 
+
+CREATE TABLE donorDistribution (
+    donorID int NOT NULL,
+    causeID int NOT NULL,
+    allocation int NOT NULL,
+    FOREIGN KEY (donorID) REFERENCES donors (donorID),
+    FOREIGN KEY (causeID) REFERENCES causes (causeID)
+);
+
+INSERT INTO donorDistribution (donorID, causeID, allocation)
+VALUES 
+    (1, 1, 50),
+    (1, 2, 50),
+    (2, 1, 15),
+    (2, 2, 25),
+    (2, 3, 60),
+    (3, 2, 70),
+    (3, 4, 30),
+    (4, 5, 100);
         
 CREATE TABLE donations (
             donationID serial PRIMARY KEY,
-            userID int NOT NULL,
+            donorID int NOT NULL,
             date DATE,
             amount REAL NOT NULL,
             category varchar(255) NOT NULL
+            FOREIGN KEY (donorID) REFERENCES donors (donorID)
  );
  
- INSERT INTO donations (userID, date, amount, category)
+ INSERT INTO donations (donorID, date, amount, category)
  VALUES
  (1,'2018-02-01', 1000, 'Westpac'),
 (2, '2018-01-29', 500, 'Westpac'),
@@ -98,3 +121,69 @@ CREATE TABLE donations (
 (19,'2010-12-08', 10, 'Other'),
 (7,'2010-12-08', 100, 'Other'),
 (14,'2010-12-20', 110, 'Other');
+
+CREATE TABLE charityImpact (
+    charityImpactId serial PRIMARY KEY,
+    causeID int not null,
+    amount int not null,
+    unit varchar(255) not null,
+    FOREIGN KEY (causeId) REFERENCES causes (causeId)
+);
+
+CREATE MATERIALIZED VIEW donorDonation
+AS SELECT (donorID, firstName, lastName, email, amount);
+
+CREATE TABLE EOFY (
+    donorID int not null,
+    date DATE not null,
+    amount real not null,
+    FOREIGN KEY (donorID) REFERENCES donors (donorID)
+);
+
+INSERT INTO EOFY (donorID, date, amount)
+VALUES 
+    (1, '2018-10-10', 1200),
+    (2, '2018-10-10', 600),
+    (3, '2018-10-10', 2400),
+    (4, '2018-10-10', 24000),
+    (5, '2018-10-10', 420),
+    (6, '2018-10-10', 300),
+    (7, '2018-10-10', 50000);
+
+SELECT 
+    donors.donorID, donors.email,
+    SUM(donations.amount) as submissionAmount,
+    SUM(EOFY.amount) as eofyAmount,
+    MIN(EOFY.date) as date, 
+    MIN(donors.disbursement) as disb,
+    dd.causeID,
+    MIN(causes.charityName) as charityName,
+    SUM(dd.allocation) as allocation,
+    SUM(dd.allocation) * SUM(EOFY.amount) / 100 as donatedAmount
+FROM donors
+JOIN donations ON donors.donorID = donations.donorID
+JOIN EOFY ON EOFY.donorID = donors.donorID
+JOIN donorDistribution as dd ON dd.donorID = donors.donorID
+JOIN causes ON causes.causeID = dd.causeID
+JOIN (
+    SELECT 
+)
+WHERE EOFY.date = '2018-10-10'
+GROUP BY donors.donorID, dd.causeID
+ORDER BY donors.donorID, dd.causeID;
+
+SELECT *
+FROM donorDistribution as dd
+JOIN donors ON donors.donorID = dd.donorID;
+
+SELECT donors.donorID, donors.disbursement * amount / 100 as donationPerYear
+FROM donors
+JOIN EOFY ON EOFY.donorID = donors.donorID;
+
+SELECT dd.donorID, causeID, allocation, donorDonationYear.donationPerYear
+FROM donorDistribution as dd
+LEFT JOIN (
+    SELECT donors.donorID, donors.disbursement * amount / 100 as donationPerYear, EOFY.date
+    FROM donors
+    JOIN EOFY ON EOFY.donorID = donors.donorID
+) donorDonationYear ON donorDonationYear.donorID = dd.donorID;
