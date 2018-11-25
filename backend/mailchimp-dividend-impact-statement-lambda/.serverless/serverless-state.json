@@ -1,8 +1,8 @@
 {
   "service": {
-    "service": "i4c",
+    "service": "mailchimp-dividend-impact-statement",
     "serviceObject": {
-      "name": "i4c"
+      "name": "mailchimp-dividend-impact-statement"
     },
     "provider": {
       "stage": "test",
@@ -23,7 +23,7 @@
           "AppLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/i4c-test-app"
+              "LogGroupName": "/aws/lambda/mailchimp-dividend-impact-statement-test-app"
             }
           },
           "AppLambdaFunction": {
@@ -33,9 +33,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/i4c/test/1543112410865-2018-11-25T02:20:10.865Z/i4c.zip"
+                "S3Key": "serverless/mailchimp-dividend-impact-statement/test/1543114601019-2018-11-25T02:56:41.019Z/mailchimp-dividend-impact-statement.zip"
               },
-              "FunctionName": "i4c-test-app",
+              "FunctionName": "mailchimp-dividend-impact-statement-test-app",
               "Handler": "handler.handler",
               "MemorySize": 1024,
               "Role": "arn:aws:iam::399675405261:role/lambda_send_db_to_mailchimp",
@@ -46,20 +46,20 @@
               "AppLogGroup"
             ]
           },
-          "AppLambdaVersionHeDPk5F2c7YCaJUE0CGSDFjlKWwP5afY6b89V7g": {
+          "AppLambdaVersionvzogHvQE5oVGpY4T1NsuiW931o3sxKZ8FVaLdOidDus": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "SSqpKaaieDhiJcQyoD3FUF4AB7Yy7ItWO4vCTt5+dIs="
+              "CodeSha256": "ty5cBphJBXLtsoEdqu3J+aT/2X2Yj00njxzZRX1sA0M="
             }
           },
           "ApiGatewayRestApi": {
             "Type": "AWS::ApiGateway::RestApi",
             "Properties": {
-              "Name": "test-i4c",
+              "Name": "test-mailchimp-dividend-impact-statement",
               "EndpointConfiguration": {
                 "Types": [
                   "EDGE"
@@ -300,7 +300,7 @@
               ]
             }
           },
-          "ApiGatewayDeployment1543112410885": {
+          "ApiGatewayDeployment1543114601040": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -372,7 +372,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionHeDPk5F2c7YCaJUE0CGSDFjlKWwP5afY6b89V7g"
+              "Ref": "AppLambdaVersionvzogHvQE5oVGpY4T1NsuiW931o3sxKZ8FVaLdOidDus"
             }
           },
           "ServiceEndpoint": {
@@ -486,7 +486,7 @@
             }
           }
         ],
-        "name": "i4c-test-app",
+        "name": "mailchimp-dividend-impact-statement-test-app",
         "package": {},
         "memory": 1024,
         "timeout": 6,
@@ -494,10 +494,10 @@
         "vpc": {}
       }
     },
-    "artifact": "/Users/liamraven/Workspace/investing-for-charity/backend/mailchimp-dividend-impact-statement-lambda/.serverless/i4c.zip"
+    "artifact": "/Users/liamraven/Workspace/investing-for-charity/backend/mailchimp-dividend-impact-statement-lambda/.serverless/mailchimp-dividend-impact-statement.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/i4c/test/1543112410865-2018-11-25T02:20:10.865Z",
-    "artifact": "i4c.zip"
+    "artifactDirectoryName": "serverless/mailchimp-dividend-impact-statement/test/1543114601019-2018-11-25T02:56:41.019Z",
+    "artifact": "mailchimp-dividend-impact-statement.zip"
   }
 }

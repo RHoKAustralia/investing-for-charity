@@ -52,7 +52,7 @@ exports.handler = (event) => {
                     permission_reminder: 'false',
                     campaign_defaults: {
                         from_name: 'Matthew Fitzpatrick',
-                        from_email: 'Matthew@investingforcharity.org',
+                        from_email: 'matthew.fitzpatrick.i4c@gmail.com',
                         subject: 'Investing for charity - impact statement',
                         language: 'english'
                     },
@@ -75,7 +75,7 @@ exports.handler = (event) => {
                 // Members request
                 const membersRequestPathParams = '';
                 const membersRequestBody = {
-                    email_address: 'james.ioppolo@gmail.com',
+                    email_address: 'vandermast9@gmail.com',
                     status: 'subscribed',
                     merge_fields: {}
                 };
@@ -87,11 +87,26 @@ exports.handler = (event) => {
                     type: 'regular',
                     recipients: {
                         list_id: listsId
-                    }
+                    },
+                    settings: {
+                        template_id: 45305
+                    },
+                    subject_line: 'Investing for charity - impact statement',
+                    from_name: 'Matthew Fitzpatrick',
+                    title: 'test campaign',
+                    winner_critieria: 'manual'
 
                 };
                 let campaignResponse = await mailchimpRequest('POST', `/campaigns`, campaignPathParams, campaignBody);
                 const campaignId = campaignResponse.id;
+                console.log('campaignId', campaignId);
+
+                // check campaign
+                const checkCampaignPathParams = {
+                    campaignid: campaignId
+                };
+                let checkCampaignResponse = await mailchimpRequest('GET', `/campaigns/${campaignId}/send-checklist`, checkCampaignPathParams);
+                console.log("checkCampaignResponse", checkCampaignResponse);
 
                 // campaign send
                 const campaignSendPathParams = {
