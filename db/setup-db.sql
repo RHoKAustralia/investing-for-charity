@@ -187,3 +187,53 @@ LEFT JOIN (
     FROM donors
     JOIN EOFY ON EOFY.donorID = donors.donorID
 ) donorDonationYear ON donorDonationYear.donorID = dd.donorID;
+
+
+-- Donation per donor per eofy per cause
+select donors.donorid,
+       dd.causeid,
+       donorWeight.donorWeight,
+       causes.causename,
+       totaleofy.balance                                                       as totateofy,
+       donorWeight.donorWeight * totaleofy.balance                             as amountThisFY,
+       donors.disbursement,
+       donors.disbursement * donorWeight.donorWeight * totaleofy.balance / 100 as donationThisYear,
+       donors.disbursement * donorWeight.donorWeight * totaleofy.balance * allocation /
+       10000                                                                   as donationThisYearPerCause,
+       donors.disbursement * donorWeight.donorWeight * totaleofy.balance * allocation / 10000000 *
+       NULLIF(charityimpact.amount, 0)                                         as donationThisYearPerCause,
+       charityimpact.unit
+from donors
+       join (select donations.donorid, sum(donations.amount / (select sum(amount) from donations)) as donorWeight
+             from donations
+             group by donations.donorid) donorWeight on donorWeight.donorid = donors.donorId
+       join ((select balance from fundeofy order by fy desc limit 1)) totaleofy on TRUE
+       join donordistribution dd on donors.donorid = dd.donorid
+       join charityimpact on dd.causeid = charityimpact.causeid
+       join causes on dd.causeid = causes.causeid
+;
+
+-- Aggregate string
+-- TODO: don't sum null string
+select donors.email,
+       donors.firstname,
+       donors.lastname,
+       causes.causename,
+       causes.charityname,
+       string_agg(agg.donationThisYearPerCause :: text || ' ' || agg.unit :: text, ' ')
+from (select donors.donorid, causes.causeid, round(
+                                               cast(donors.disbursement * donorWeight.donorWeight * totaleofy.balance *
+                                                    allocation / 10000000 *
+                                                    NULLIF(charityimpact.amount, 0) as numeric),
+                                               2) as donationThisYearPerCause, charityimpact.unit
+      from donors
+             join (select donations.donorid, sum(donations.amount / (select sum(amount) from donations)) as donorWeight
+                   from donations
+                   group by donations.donorid) donorWeight on donorWeight.donorid = donors.donorId
+             join ((select balance from fundeofy order by fy desc limit 1)) totaleofy on TRUE
+             join donordistribution dd on donors.donorid = dd.donorid
+             join charityimpact on dd.causeid = charityimpact.causeid
+             join causes on dd.causeid = causes.causeid) agg
+       join donors on agg.donorid = donors.donorid
+       join causes on agg.causeid = causes.causeid
+group by donors.donorid, causes.causeid;
