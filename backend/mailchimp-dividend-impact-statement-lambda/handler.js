@@ -5,7 +5,7 @@ AWS.config.update({
     region: "ap-southeast-2",
 });
 
-const mailchimpAPIKey = 'fed93f27524a7c6378592543595f346a-us19';
+const mailchimpAPIKey = '';
 const mailchimp = new MailchimpAPI(mailchimpAPIKey);
 
 const mailchimpRequest = (method, endpoint, pathParams, body, query) => {
@@ -15,49 +15,80 @@ const mailchimpRequest = (method, endpoint, pathParams, body, query) => {
         path_params: pathParams,
         body,
         query
-    }, callback);
+    });
 }
 
 exports.handler = async (event) => {
 
     try {
+        // Lists Request
         const listsRequestPathParams = '';
         const listsRequestBody = {
             name: 'test list',
             contact: {
                 company: 'Investing for charity',
-                address: 'abc',
+                address1: 'abc',
                 city: 'Sydney',
                 state: 'NSW',
                 zip: '2000',
                 country: 'Australia'
             },
-            permission_reminder: false,
-            campaign_defaults: false
+            permission_reminder: 'false',
+            campaign_defaults: {
+                from_name: 'Matthew Fitzpatrick',
+                from_email: 'Matthew@investingforcharity.org',
+                subject: 'Investing for charity - impact statement',
+                language: 'english'
+            },
+            email_type_option: false,
+
         }
+        const listsResponse = await mailchimpRequest('POST', '/lists', listsRequestPathParams, listsRequestBody);
+        const listsId = listsResponse.id;
 
-        let responseOne = await mailchimpRequest('POST', '/lists', listsRequestPathParams, listsRequestBody);
+        // Merge Fields request
+        // const mergeFields1RequestPathParams = '';
+        // const mergeFields1RequestBody = {
+        //     name: 'A_1',
+        //     type: 'text',
+        //     required: true,
+        //     default_value: '150'
+        // };
+        // let mergeFields1Response = await mailchimpRequest('POST', `/lists/${listsId}/merge-fields`, mergeFields1RequestPathParams, mergeFields1RequestBody);
 
-        // get list id
-
-        // let responseTwo = await mailchimpRequest('POST', '/');
-        // let responseThree = await mailchimpRequest('POST');
-
-        // lists
-
-        // list id, manage field
-
-        // members
+        // Members request
+        const membersRequestPathParams = '';
+        const membersRequestBody = {
+            email_address: 'james.ioppolo@gmail.com',
+            status: 'subscribed',
+            merge_fields: {}
+        };
+        let membersResponse = await mailchimpRequest('POST', `/lists/${listsId}/members`, membersRequestPathParams, membersRequestBody);
 
         // create campaign
+        const campaignPathParams = '';
+        const campaignBody = {
+            type: 'regular',
+            recipients: {
+                list_id: listsId
+            }
+
+        };
+        let campaignResponse = await mailchimpRequest('POST', `/campaigns`, campaignPathParams, campaignBody);
+        const campaignId = campaignResponse.id;
 
         // campaign send
+        const campaignSendPathParams = {
+            campaignid
+        };
 
-        const res = responseOne;
+        let campaignSendResponse = await mailchimpRequest('POST', `/campaigns/${campaignId}/actions/send`, campaignSendPathParams);
+
+        console.log("list response", listsResponse, "members response", membersResponse, "campaign response", campaignResponse, "campaignSend Response", campaignSendResponse);
 
         return {
             statusCode: 200,
-            body: JSON.stringify('Hello from Lambda!', res),
+            body: JSON.stringify('Hello from Lambda!', listsResponse),
         };
     }
     catch(error) {
