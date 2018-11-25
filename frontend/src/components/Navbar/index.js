@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Button,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -11,6 +12,8 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem } from 'reactstrap';
+  import Cookies from 'js-cookie';
+
 
 export default class TopNavbar extends React.Component {
   constructor(props) {
@@ -26,9 +29,14 @@ export default class TopNavbar extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
+  logout(){
+    Cookies.remove('id_token', { path: '' });
+    window.location.reload()
 
+  }
   render() {
-
+ 
+  
     return (
       <div>
         <Navbar color="info" light expand="md" className="bg-primary">
@@ -37,7 +45,8 @@ export default class TopNavbar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="#" className="logout">Logout</NavLink>
+                <Button onClick={this.logout} color="info">Logout</Button>
+                {/* <NavLink onClick={console.log('ok')} className="logout">Logout</NavLink> */}
               </NavItem>
               
             </Nav>

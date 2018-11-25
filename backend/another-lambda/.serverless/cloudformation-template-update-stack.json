@@ -8,7 +8,7 @@
     "AppLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/mailchimp-dividend-impact-statement-test-app"
+        "LogGroupName": "/aws/lambda/i4c-test-app"
       }
     },
     "AppLambdaFunction": {
@@ -18,9 +18,9 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/mailchimp-dividend-impact-statement/test/1543114601019-2018-11-25T02:56:41.019Z/mailchimp-dividend-impact-statement.zip"
+          "S3Key": "serverless/i4c/test/1543112333223-2018-11-25T02:18:53.223Z/i4c.zip"
         },
-        "FunctionName": "mailchimp-dividend-impact-statement-test-app",
+        "FunctionName": "i4c-test-app",
         "Handler": "handler.handler",
         "MemorySize": 1024,
         "Role": "arn:aws:iam::399675405261:role/lambda_send_db_to_mailchimp",
@@ -31,20 +31,20 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionvzogHvQE5oVGpY4T1NsuiW931o3sxKZ8FVaLdOidDus": {
+    "AppLambdaVersiondtxN4Z92450cbhUKsv4e7VD7QI0Jfo5ELZpRO7fQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "ty5cBphJBXLtsoEdqu3J+aT/2X2Yj00njxzZRX1sA0M="
+        "CodeSha256": "Tu2aw/dhgBbR/oGS4SFyE4SbqHZXFofPLC+eS6yrdCk="
       }
     },
     "ApiGatewayRestApi": {
       "Type": "AWS::ApiGateway::RestApi",
       "Properties": {
-        "Name": "test-mailchimp-dividend-impact-statement",
+        "Name": "test-i4c",
         "EndpointConfiguration": {
           "Types": [
             "EDGE"
@@ -52,7 +52,7 @@
         }
       }
     },
-    "ApiGatewayResourceSendDashdividendDashimpactDashstatement": {
+    "ApiGatewayResourceAnotherDashlambda": {
       "Type": "AWS::ApiGateway::Resource",
       "Properties": {
         "ParentId": {
@@ -61,28 +61,13 @@
             "RootResourceId"
           ]
         },
-        "PathPart": "send-dividend-impact-statement",
+        "PathPart": "another-lambda",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
       }
     },
-    "ApiGatewayResourceProxyVar": {
-      "Type": "AWS::ApiGateway::Resource",
-      "Properties": {
-        "ParentId": {
-          "Fn::GetAtt": [
-            "ApiGatewayRestApi",
-            "RootResourceId"
-          ]
-        },
-        "PathPart": "{proxy+}",
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        }
-      }
-    },
-    "ApiGatewayMethodSendDashdividendDashimpactDashstatementOptions": {
+    "ApiGatewayMethodAnotherDashlambdaOptions": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "AuthorizationType": "NONE",
@@ -122,114 +107,20 @@
           ]
         },
         "ResourceId": {
-          "Ref": "ApiGatewayResourceSendDashdividendDashimpactDashstatement"
+          "Ref": "ApiGatewayResourceAnotherDashlambda"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
       }
     },
-    "ApiGatewayMethodProxyVarOptions": {
-      "Type": "AWS::ApiGateway::Method",
-      "Properties": {
-        "AuthorizationType": "NONE",
-        "HttpMethod": "OPTIONS",
-        "MethodResponses": [
-          {
-            "StatusCode": "200",
-            "ResponseParameters": {
-              "method.response.header.Access-Control-Allow-Origin": true,
-              "method.response.header.Access-Control-Allow-Headers": true,
-              "method.response.header.Access-Control-Allow-Methods": true,
-              "method.response.header.Access-Control-Allow-Credentials": true
-            },
-            "ResponseModels": {}
-          }
-        ],
-        "RequestParameters": {},
-        "Integration": {
-          "Type": "MOCK",
-          "RequestTemplates": {
-            "application/json": "{statusCode:200}"
-          },
-          "ContentHandling": "CONVERT_TO_TEXT",
-          "IntegrationResponses": [
-            {
-              "StatusCode": "200",
-              "ResponseParameters": {
-                "method.response.header.Access-Control-Allow-Origin": "'*'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,DELETE,GET,HEAD,PATCH,POST,PUT'",
-                "method.response.header.Access-Control-Allow-Credentials": "'false'"
-              },
-              "ResponseTemplates": {
-                "application/json": ""
-              }
-            }
-          ]
-        },
-        "ResourceId": {
-          "Ref": "ApiGatewayResourceProxyVar"
-        },
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        }
-      }
-    },
-    "ApiGatewayMethodSendDashdividendDashimpactDashstatementPost": {
+    "ApiGatewayMethodAnotherDashlambdaPost": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "HttpMethod": "POST",
         "RequestParameters": {},
         "ResourceId": {
-          "Ref": "ApiGatewayResourceSendDashdividendDashimpactDashstatement"
-        },
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        },
-        "ApiKeyRequired": false,
-        "AuthorizationType": "COGNITO_USER_POOLS",
-        "AuthorizerId": {
-          "Ref": "2UnderscoreL1ukFtrEbApiGatewayAuthorizer"
-        },
-        "Integration": {
-          "IntegrationHttpMethod": "POST",
-          "Type": "AWS_PROXY",
-          "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition"
-                },
-                ":apigateway:",
-                {
-                  "Ref": "AWS::Region"
-                },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "AppLambdaFunction",
-                    "Arn"
-                  ]
-                },
-                "/invocations"
-              ]
-            ]
-          }
-        },
-        "MethodResponses": []
-      },
-      "DependsOn": "2UnderscoreL1ukFtrEbApiGatewayAuthorizer"
-    },
-    "ApiGatewayMethodProxyVarAny": {
-      "Type": "AWS::ApiGateway::Method",
-      "Properties": {
-        "HttpMethod": "ANY",
-        "RequestParameters": {},
-        "ResourceId": {
-          "Ref": "ApiGatewayResourceProxyVar"
+          "Ref": "ApiGatewayResourceAnotherDashlambda"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -285,7 +176,7 @@
         ]
       }
     },
-    "ApiGatewayDeployment1543114601040": {
+    "ApiGatewayDeployment1543112333232": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -294,10 +185,8 @@
         "StageName": "test"
       },
       "DependsOn": [
-        "ApiGatewayMethodSendDashdividendDashimpactDashstatementOptions",
-        "ApiGatewayMethodProxyVarOptions",
-        "ApiGatewayMethodSendDashdividendDashimpactDashstatementPost",
-        "ApiGatewayMethodProxyVarAny"
+        "ApiGatewayMethodAnotherDashlambdaOptions",
+        "ApiGatewayMethodAnotherDashlambdaPost"
       ]
     },
     "AppLambdaPermissionApiGateway": {
@@ -357,7 +246,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionvzogHvQE5oVGpY4T1NsuiW931o3sxKZ8FVaLdOidDus"
+        "Ref": "AppLambdaVersiondtxN4Z92450cbhUKsv4e7VD7QI0Jfo5ELZpRO7fQ"
       }
     },
     "ServiceEndpoint": {

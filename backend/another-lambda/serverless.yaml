@@ -1,0 +1,21 @@
+# serverless.yml
+
+service: i4c
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: test
+  region: ap-southeast-2
+  role: 'arn:aws:iam::399675405261:role/lambda_send_db_to_mailchimp'
+
+functions:
+  app:
+    handler: handler.handler # reference the file and exported method
+    events: # events trigger lambda functions
+      - http: # this is an API Gateway HTTP event trigger
+          path: /another-lambda
+          method: POST
+          cors: true
+          authorizer:
+            arn: arn:aws:cognito-idp:ap-southeast-2:399675405261:userpool/ap-southeast-2_L1ukFtrEb
