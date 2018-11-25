@@ -1,6 +1,6 @@
 # serverless.yml
 
-service: mailchimp-dividend-impact-statement
+service: i4c
 
 provider:
   name: aws
