@@ -220,7 +220,7 @@ select donors.email,
        donors.lastname,
        causes.causename,
        causes.charityname,
-       string_agg(agg.donationThisYearPerCause :: text || ' ' || agg.unit :: text, ' ')
+       lower(string_agg(concat_ws(' ', agg.donationThisYearPerCause, agg.unit), ' '))
 from (select donors.donorid, causes.causeid, round(
                                                cast(donors.disbursement * donorWeight.donorWeight * totaleofy.balance *
                                                     allocation / 10000000 *
