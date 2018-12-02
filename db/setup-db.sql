@@ -214,7 +214,6 @@ from donors
 ;
 
 -- Aggregate string
--- TODO: don't sum null string
 select donors.email,
        donors.firstname,
        donors.lastname,
